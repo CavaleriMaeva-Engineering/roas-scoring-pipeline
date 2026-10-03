@@ -4,8 +4,16 @@ An end-to-end Data Engineering and Machine Learning pipeline designed to predict
 
 ## Data Pipeline Architecture
 
-┌─────────────────┐     ┌──────────────────┐     ┌───────────────────┐     ┌───────────────────┐ │ Tracking Pixels │ ──> │ PostgreSQL / DB  │ ──> │ Feature Eng.      │ ──> │ RandomForest ML   │ │ (Cloudflare)    │     │ Ingestion (ELT)  │     │ (Pandas)          │     │ Propensity Score  │ └─────────────────┘     └──────────────────┘     └───────────────────┘     └─────────┬─────────┘ │ ▼ ┌───────────────────┐ │ Value-Based       │ │ Bidding (Meta/Ads)│ └───────────────────┘
-
+┌─────────────────┐     ┌──────────────────┐     ┌───────────────────┐     ┌───────────────────┐
+│ Tracking Pixels │ ──> │ PostgreSQL / DB  │ ──> │ Feature Eng.      │ ──> │ RandomForest ML   │
+│ (Cloudflare)    │     │ Ingestion (ELT)  │     │ (Pandas)          │     │ Propensity Score  │
+└─────────────────┘     └──────────────────┘     └───────────────────┘     └─────────┬─────────┘
+                                                                                     │
+                                                                                     ▼
+                                                                           ┌───────────────────┐
+                                                                           │ Value-Based       │
+                                                                           │ Bidding (Meta/Ads)│
+                                                                           └───────────────────┘
 ### Workflow
 1. **Ingestion & Data Preparation**: Parsing user interaction logs (clicks, session activity, pageviews).
 2. **Feature Engineering**: Transforming raw clickstream data into behavioral features (cart abandonment detection, engagement duration, visit recurrence).
