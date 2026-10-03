@@ -3,17 +3,13 @@
 An end-to-end Data Engineering and Machine Learning pipeline designed to predict real-time visitor purchase intent and optimize Return On Ad Spend (ROAS) for e-commerce performance marketing.
 
 ## Data Pipeline Architecture
-
-┌─────────────────┐     ┌──────────────────┐     ┌───────────────────┐     ┌───────────────────┐
-│ Tracking Pixels │ ──> │ PostgreSQL / DB  │ ──> │ Feature Eng.      │ ──> │ RandomForest ML   │
-│ (Cloudflare)    │     │ Ingestion (ELT)  │     │ (Pandas)          │     │ Propensity Score  │
-└─────────────────┘     └──────────────────┘     └───────────────────┘     └─────────┬─────────┘
-                                                                                     │
-                                                                                     ▼
-                                                                           ┌───────────────────┐
-                                                                           │ Value-Based       │
-                                                                           │ Bidding (Meta/Ads)│
-                                                                           └───────────────────┘
+```mermaid
+flowchart LR
+    A["Tracking Pixels<br/>(Cloudflare)"] --> B["PostgreSQL / DB<br/>Ingestion (ELT)"]
+    B --> C["Feature Eng.<br/>(Pandas)"]
+    C --> D["RandomForest ML<br/>Propensity Score"]
+    D --> E["Value-Based Bidding<br/>(Meta/Ads)"]
+```
 ### Workflow
 1. **Ingestion & Data Preparation**: Parsing user interaction logs (clicks, session activity, pageviews).
 2. **Feature Engineering**: Transforming raw clickstream data into behavioral features (cart abandonment detection, engagement duration, visit recurrence).
